@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CO.Gr — منصة التبرع</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --green-dark:  #0d4a27;
+  --green-hero:  #1a6b3c;
+  --green-mid:   #2e8b57;
+  --green-wave:  #7ec87e;
+  --green-stats: #5cb85c;
+  --cream:       #f5f0e4;
+  --gold:        #c8a84b;
+  --gold-btn:    #b8943a;
+  --white:       #ffffff;
+  --text-dark:   #1a1a1a;
+  --text-gray:   #555;
+  --card-border: #e0ddd4;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+  background: #fff;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ===================== NAVBAR ===================== */
+.navbar {
+  background: var(--green-dark);
+  padding: 0 60px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+.logo span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.88);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.btn-nav-donate {
+  background: var(--gold) !important;
+  color: var(--white) !important;
+  padding: 9px 24px;
+  border-radius: 8px;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  transition: background .2s !important;
+}
+.btn-nav-donate:hover { background: var(--gold-btn) !important; }
+
+/* ===================== HERO ===================== */
+.hero {
+  background: linear-gradient(175deg, #0b3d22 0%, #145e33 35%, #1e7a42 65%, #2a8f50 100%);
+  min-height: 540px;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 80px 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(100,200,120,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-text { flex: 1; text-align: right; }
+
+.hero-text h1 {
+  font-size: 50px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+
+.hero-text p {
+  font-size: 14.5px;
+  color: rgba(255,255,255,.78);
+  line-height: 2;
+  max-width: 400px;
+  margin-right: 0;
+  margin-left: auto;
+  margin-bottom: 32px;
+}
+
+.btn-hero-donate {
+  display: inline-block;
+  background: var(--green-dark);
+  color: var(--white);
+  padding: 13px 38px;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid rgba(255,255,255,.15);
+  transition: background .25s, transform .2s;
+}
+.btn-hero-donate:hover {
+  background: #092e18;
+  transform: translateY(-2px);
+}
+
+.hero-imgs {
+  flex: 0 0 420px;
+  position: relative;
+  height: 370px;
+}
+
+.circ {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,.25);
+  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+.circ img { width:100%; height:100%; object-fit:cover; display:block; }
+
+.circ-ph {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  font-size: 2.4rem;
+}
+
+.c1 { width:220px; height:220px; top:0; right:80px;
+  background: linear-gradient(135deg,#3cb46a,#1e6e40); }
+
+.c2 { width:155px; height:155px; bottom:10px; right:0;
+  background: linear-gradient(135deg,#5c3d2e,#8b5e3c); }
+
+.c3 { width:158px; height:158px; bottom:0; right:180px;
+  background: linear-gradient(135deg,#a03030,#c85050); }
+
+/* ===================== WAVE TRANSITION ===================== */
+.wave-wrap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  line-height: 0;
+  z-index: 3;
+}
+.wave-wrap svg { width:100%; display:block; }
+
+/* ===================== STATS ===================== */
+.stats-section {
+  background: linear-gradient(to bottom, #5db870 0%, #4aab62 30%, #c8d9a0 70%, var(--cream) 100%);
+  padding: 48px 80px 56px;
+  position: relative;
+  z-index: 1;
+}
+
+.stats-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat { text-align: center; }
+
+.stat-num {
+  font-size: 44px;
+  font-weight: 900;
+  color: var(--white);
+  display: block;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+
+.stat-lbl {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  display: block;
+  margin-top: 6px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 50px;
+  background: rgba(255,255,255,.35);
+}
+
+/* ===================== HOW TO START ===================== */
+.how-section {
+  background: var(--cream);
+  padding: 70px 80px;
+  text-align: center;
+}
+
+.sec-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green-mid);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sec-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.sec-sub {
+  font-size: 14.5px;
+  color: var(--text-gray);
+  margin-bottom: 50px;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.how-card {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 38px 28px 32px;
+  text-align: center;
+  box-shadow: 0 3px 18px rgba(0,0,0,.07);
+  border: 1px solid rgba(0,0,0,.05);
+  transition: transform .3s, box-shadow .3s;
+  position: relative;
+}
+.how-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 35px rgba(0,0,0,.1);
+}
+
+.how-num {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  font-size: 42px;
+  font-weight: 900;
+  color: rgba(46,139,87,.1);
+  line-height: 1;
+}
+
+.how-icon {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, var(--green-mid), var(--green-stats));
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 20px;
+  box-shadow: 0 6px 18px rgba(46,139,87,.3);
+}
+
+.how-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.how-card p {
+  font-size: 13.5px;
+  color: #777;
+  line-height: 1.85;
+}
+
+/* ===================== DONATION CATEGORIES ===================== */
+.cats-section {
+  background: var(--cream);
+  padding: 20px 80px 80px;
+  text-align: center;
+}
+
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cat-card {
+  background: var(--white);
+  border: 1.5px solid var(--card-border);
+  border-radius: 16px;
+  padding: 36px 20px 28px;
+  text-align: center;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+  cursor: pointer;
+}
+.cat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  border-color: var(--green-mid);
+}
+
+.cat-icon {
+  width: 80px; height: 80px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px;
+  background: #f0f8f0;
+}
+
+.cat-card:nth-child(1) .cat-icon { background: #fff3e0; }
+.cat-card:nth-child(2) .cat-icon { background: #e8f5e9; }
+.cat-card:nth-child(3) .cat-icon { background: #e3f2fd; }
+.cat-card:nth-child(4) .cat-icon { background: #fce4ec; }
+
+.cat-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.cat-card p {
+  font-size: 12.5px;
+  color: #888;
+  line-height: 1.7;
+}
+
+/* ===================== SUCCESS STORIES ===================== */
+.stories-section {
+  background: var(--cream);
+  padding: 20px 80px 80px;
+  text-align: center;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.story-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 3px 16px rgba(0,0,0,.07);
+  text-align: right;
+  transition: transform .3s, box-shadow .3s;
+}
+.story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.12);
+}
+
+.story-img {
+  height: 170px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* *** NEW: actual images in story cards *** */
+.story-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.story-card:hover .story-img img {
+  transform: scale(1.06);
+}
+
+.story-body {
+  padding: 18px;
+}
+
+.story-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 30px;
+  margin-bottom: 8px;
+}
+.tag-volunteer { background: #e8f5e9; color: var(--green-mid); }
+.tag-charity   { background: #fff3e0; color: #c8813a; }
+
+.story-body h3 {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.story-body p {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.7;
+}
+
+.story-meta {
+  font-size: 11.5px;
+  color: #aaa;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+/* ===================== PROJECTS SECTION ===================== */
+.projects-section {
+  background: var(--white);
+  padding: 70px 80px;
+  text-align: center;
+}
+
+.proj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  text-align: right;
+}
+
+.view-all-btn {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--green-mid);
+  text-decoration: none;
+  border-bottom: 2px solid var(--green-mid);
+  padding-bottom: 2px;
+  transition: color .2s;
+}
+.view-all-btn:hover { color: var(--green-dark); }
+
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.proj-card {
+  background: var(--white);
+  border: 1.5px solid #eee;
+  border-radius: 18px;
+  overflow: hidden;
+  text-align: right;
+  transition: transform .3s, box-shadow .3s;
+  box-shadow: 0 3px 16px rgba(0,0,0,.06);
+}
+.proj-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 38px rgba(0,0,0,.11);
+}
+
+.proj-img {
+  height: 190px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* *** NEW: actual images in project cards *** */
+.proj-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.proj-card:hover .proj-img img {
+  transform: scale(1.06);
+}
+
+.proj-tag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--gold);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.proj-body { padding: 22px; }
+
+.proj-body h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.proj-body p {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+
+.prog-wrap { margin-bottom: 14px; }
+
+.prog-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  margin-bottom: 7px;
+}
+.prog-info .raised { font-weight: 800; color: var(--green-mid); }
+.prog-info .goal   { color: #bbb; }
+
+.prog-bar {
+  height: 7px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(to left, var(--green-stats), var(--green-mid));
+}
+
+.btn-proj {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  border: 2px solid var(--green-mid);
+  color: var(--green-mid);
+  border-radius: 10px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .25s, color .25s;
+}
+.btn-proj:hover { background: var(--green-mid); color: #fff; }
+
+/* ===================== FOOTER ===================== */
+footer {
+  background: #0a2a17;
+  padding: 55px 80px 28px;
+  direction: rtl;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 50px;
+  max-width: 1100px;
+  margin: 0 auto 44px;
+}
+
+.footer-brand .f-logo {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--white);
+  display: block;
+  margin-bottom: 14px;
+}
+.footer-brand .f-logo span { color: var(--gold); }
+
+.footer-brand p {
+  font-size: 13.5px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.85;
+  max-width: 240px;
+}
+
+.f-col h4 {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 18px;
+}
+
+.f-col ul { list-style: none; }
+.f-col ul li { margin-bottom: 9px; }
+.f-col ul li a {
+  text-decoration: none;
+  font-size: 13.5px;
+  color: rgba(255,255,255,.45);
+  transition: color .2s;
+}
+.f-col ul li a:hover { color: var(--gold); }
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,.3);
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+}
+.socials a {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.5);
+  font-size: 14px;
+  text-decoration: none;
+  transition: background .2s, border-color .2s;
+}
+.socials a:hover {
+  background: var(--green-mid);
+  border-color: var(--green-mid);
+  color: #fff;
+}
+
+/* ===================== SCROLL REVEAL ===================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* ===================== RESPONSIVE DESIGN ===================== */
+@media (max-width: 1024px) {
+  .navbar { padding: 0 40px; }
+  .hero { padding: 50px 40px 0; }
+  .hero-inner { padding-bottom: 80px; }
+  .hero-text h1 { font-size: 42px; }
+  .stats-section, .how-section, .cats-section, .stories-section, .projects-section { padding-left: 40px; padding-right: 40px; }
+  .how-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .proj-grid { grid-template-columns: repeat(2, 1fr); }
+  .stories-grid { grid-template-columns: repeat(2, 1fr); }
+  footer { padding: 50px 40px 28px; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  .navbar { padding: 0 20px; height: auto; min-height: 60px; flex-direction: column; gap: 15px; padding-top: 15px; padding-bottom: 15px; }
+  .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+  .nav-links a { font-size: 13px; }
+  .hero { padding: 40px 20px 0; min-height: auto; }
+  .hero-inner { flex-direction: column-reverse; gap: 30px; padding-bottom: 60px; }
+  .hero-text { text-align: center; }
+  .hero-text h1 { font-size: 32px; }
+  .hero-text p { margin: 0 auto 24px; max-width: 100%; }
+  .hero-imgs { flex: 0 0 auto; height: 280px; width: 100%; max-width: 350px; margin: 0 auto; }
+  .c1 { width: 180px; height: 180px; right: 50%; transform: translateX(50%); top: 0; }
+  .c2 { width: 130px; height: 130px; bottom: 10px; right: 10px; }
+  .c3 { width: 130px; height: 130px; bottom: 10px; right: auto; left: 10px; }
+  .stats-section { padding: 40px 20px 48px; }
+  .stats-inner { flex-direction: column; gap: 30px; }
+  .stat-divider { width: 60px; height: 1px; }
+  .how-section, .cats-section, .stories-section, .projects-section { padding: 50px 20px; }
+  .sec-title { font-size: 28px; }
+  .how-grid { grid-template-columns: 1fr; gap: 20px; }
+  .cats-grid { grid-template-columns: 1fr; gap: 18px; }
+  .stories-grid { grid-template-columns: 1fr; gap: 18px; }
+  .proj-grid { grid-template-columns: 1fr; gap: 20px; }
+  .proj-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+  footer { padding: 45px 20px 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 35px; }
+  .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 { font-size: 26px; line-height: 1.3; }
+  .hero-text p { font-size: 13px; }
+  .btn-hero-donate { padding: 11px 28px; font-size: 14px; }
+  .hero-imgs { height: 240px; }
+  .c1 { width: 150px; height: 150px; }
+  .c2, .c3 { width: 110px; height: 110px; }
+  .stat-num { font-size: 36px; }
+  .sec-title { font-size: 24px; }
+  .story-img { height: 150px; }
+  .proj-img { height: 160px; }
+}
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">CO<span>.Gr</span></div>
+  <ul class="nav-links">
+    <li><a href="#">تبرع الآن</a></li>
+    <li><a href="#">تبرعاتك</a></li>
+    <li><a href="#">قصص النجاح</a></li>
+    <li><a href="#">المشاريع</a></li>
+    <li><a href="#">أقسام التبرع</a></li>
+    <li><a href="#" class="btn-nav-donate">تبرع الآن</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text reveal">
+      <h1>معًا نحول العطاء<br>إلى حياة أفضل</h1>
+      <p>من خلال تبرعك، تساعدنا توصل الدعم لمستحقيه بكل شفافية وسهولة. مساهمتك، مهما كانت، تفرق وتصنع أمل حقيقي.</p>
+      <a href="#" class="btn-hero-donate">تبرع الآن</a>
+    </div>
+    <div class="hero-imgs reveal">
+      <div class="circ c1"><div class="circ-ph">🌱</div></div>
+      <div class="circ c2"><div class="circ-ph">🤝</div></div>
+      <div class="circ c3"><div class="circ-ph">❤️</div></div>
+    </div>
+  </div>
+  <div class="wave-wrap">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C360,70 1080,-10 1440,30 L1440,60 L0,60 Z" fill="#5db870"/>
+    </svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="stat reveal">
+      <span class="stat-num">0+</span>
+      <span class="stat-lbl">انضمام</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat reveal">
+      <span class="stat-num">0+</span>
+      <span class="stat-lbl">تبرعات</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat reveal">
+      <span class="stat-num">0+</span>
+      <span class="stat-lbl">حملات</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO START -->
+<section class="how-section">
+  <span class="sec-label">How to Start</span>
+  <h2 class="sec-title">كيف تبدأ؟</h2>
+  <p class="sec-sub">ثلاث خطوات بسيطة للمساهمة وصنع الفرق</p>
+  <div class="how-grid">
+    <div class="how-card reveal">
+      <span class="how-num">01</span>
+      <div class="how-icon">🔍</div>
+      <h3>اختر مشروعك</h3>
+      <p>تصفح المشاريع والحملات المتاحة واختر ما يلامس قلبك.</p>
+    </div>
+    <div class="how-card reveal">
+      <span class="how-num">02</span>
+      <div class="how-icon">💳</div>
+      <h3>أتمم التبرع</h3>
+      <p>أدخل مبلغ تبرعك واختر طريقة الدفع المناسبة. سريع وآمن.</p>
+    </div>
+    <div class="how-card reveal">
+      <span class="how-num">03</span>
+      <div class="how-icon">📊</div>
+      <h3>تابع أثر تبرعك</h3>
+      <p>تصلك تحديثات دورية تُظهر لك كيف وصل تبرعك وما الفرق الذي أحدثه.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DONATION CATEGORIES -->
+<section class="cats-section">
+  <span class="sec-label">اقسام التبرع</span>
+  <h2 class="sec-title">اختر المجال الذي توده المساهمة فيه وأحدث فرقًا في حياة الناس</h2>
+  <div class="cats-grid" style="margin-top:40px;">
+    <div class="cat-card reveal">
+      <div class="cat-icon">🛒</div>
+      <h3>الاعانة الغذائية</h3>
+      <p>توفير الغذاء والمساعدات الطارئة</p>
+    </div>
+    <div class="cat-card reveal">
+      <div class="cat-icon">🎓</div>
+      <h3>التعليم</h3>
+      <p>دعم الطلاب والمدرسين في المناطق النائية</p>
+    </div>
+    <div class="cat-card reveal">
+      <div class="cat-icon">🏥</div>
+      <h3>العلاج والصحة</h3>
+      <p>توفير الدواء والمساعدات الطارئة</p>
+    </div>
+    <div class="cat-card reveal">
+      <div class="cat-icon">👦</div>
+      <h3>رعاية الايتام</h3>
+      <p>توفر الرعاية الشاملة لاطفال الايتام</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS STORIES -->
+<section class="stories-section">
+  <span class="sec-label">قصص النجاح</span>
+  <h2 class="sec-title">تعرف على الفرق الذي أحدثته التبرعات في حياة الناس</h2>
+  <div class="stories-grid" style="margin-top:40px;">
+
+    <div class="story-card reveal">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1593113616828-6f22bca04804?w=400&h=200&fit=crop&q=80" alt="حملة تطوع بيئية" loading="lazy"/>
+      </div>
+      <div class="story-body">
+        <span class="story-tag tag-volunteer">حملة تطوع</span>
+        <h3>حملة تطوع لمساعدة الطبيعة والعلاجية</h3>
+        <p>تم تقديم أكثر من 3 قيم</p>
+        <div class="story-meta">⏱ 3 أيام</div>
+      </div>
+    </div>
+
+    <div class="story-card reveal">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=200&fit=crop&q=80" alt="حملة تطوع مجتمعية" loading="lazy"/>
+      </div>
+      <div class="story-body">
+        <span class="story-tag tag-volunteer">حملة تطوع</span>
+        <h3>حملة تطوع لمساعدة الطبيعة والعلاجية</h3>
+        <p>تم تقديم أكثر من 3 قيم</p>
+        <div class="story-meta">⏱ 3 أيام</div>
+      </div>
+    </div>
+
+    <div class="story-card reveal">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=200&fit=crop&q=80" alt="حملة الخير - وجبات" loading="lazy"/>
+      </div>
+      <div class="story-body">
+        <span class="story-tag tag-charity">حملة الخير</span>
+        <h3>تم تقديم أكثر من 1500 وجبة</h3>
+        <p>تم تقديم أكثر من 1500 وجبة للمحتاجين</p>
+        <div class="story-meta">⏱ 1500 وجبة</div>
+      </div>
+    </div>
+
+    <div class="story-card reveal">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1547476008-21010b5da7c6?w=400&h=200&fit=crop&q=80" alt="حملة الخير - مساعدات" loading="lazy"/>
+      </div>
+      <div class="story-body">
+        <span class="story-tag tag-charity">حملة الخير</span>
+        <h3>تم تقديم أكثر من 1500 وجبة</h3>
+        <p>تم تقديم أكثر من 1500 وجبة للمحتاجين</p>
+        <div class="story-meta">⏱ 1500 وجبة</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section">
+  <div class="proj-header">
+    <div>
+      <span class="sec-label">المشاريع</span>
+      <h2 class="sec-title">أبرز الحملات الحالية</h2>
+    </div>
+    <a href="#" class="view-all-btn">عرض الكل ←</a>
+  </div>
+  <div class="proj-grid">
+
+    <div class="proj-card reveal">
+      <div class="proj-img">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=250&fit=crop&q=80" alt="مدرسة للأطفال المحرومين" loading="lazy"/>
+        <span class="proj-tag">تعليم 📚</span>
+      </div>
+      <div class="proj-body">
+        <h3>مدرسة للأطفال المحرومين</h3>
+        <p>نبني مدرسة جديدة لـ 300 طفل في المناطق الريفية.</p>
+        <div class="prog-wrap">
+          <div class="prog-info">
+            <span class="raised">85,000 ر.س</span>
+            <span class="goal">100,000 ر.س</span>
+          </div>
+          <div class="prog-bar"><div class="prog-fill" style="width:85%"></div></div>
+        </div>
+        <button class="btn-proj">تبرع الآن</button>
+      </div>
+    </div>
+
+    <div class="proj-card reveal">
+      <div class="proj-img">
+        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&h=250&fit=crop&q=80" alt="عيادة طبية متنقلة" loading="lazy"/>
+        <span class="proj-tag">صحة 🏥</span>
+      </div>
+      <div class="proj-body">
+        <h3>عيادة طبية متنقلة</h3>
+        <p>توفير رعاية صحية مجانية للمجتمعات النائية.</p>
+        <div class="prog-wrap">
+          <div class="prog-info">
+            <span class="raised">45,000 ر.س</span>
+            <span class="goal">80,000 ر.س</span>
+          </div>
+          <div class="prog-bar"><div class="prog-fill" style="width:56%"></div></div>
+        </div>
+        <button class="btn-proj">تبرع الآن</button>
+      </div>
+    </div>
+
+    <div class="proj-card reveal">
+      <div class="proj-img">
+        <img src="https://images.unsplash.com/photo-1541544537156-7627a7a4aa1c?w=600&h=250&fit=crop&q=80" alt="بئر مياه نظيفة" loading="lazy"/>
+        <span class="proj-tag">ماء 💧</span>
+      </div>
+      <div class="proj-body">
+        <h3>بئر مياه نظيفة</h3>
+        <p>حفر بئر مياه يستفيد منها أكثر من 500 شخص.</p>
+        <div class="prog-wrap">
+          <div class="prog-info">
+            <span class="raised">28,000 ر.س</span>
+            <span class="goal">30,000 ر.س</span>
+          </div>
+          <div class="prog-bar"><div class="prog-fill" style="width:93%"></div></div>
+        </div>
+        <button class="btn-proj">تبرع الآن</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="f-logo">CO<span>.Gr</span></span>
+      <p>منصتك الموثوقة للتبرع الشفاف والمؤثر. نربط المانحين بالمحتاجين بكل أمانة وشفافية.</p>
+    </div>
+    <div class="f-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المشاريع</a></li>
+        <li><a href="#">قصص النجاح</a></li>
+        <li><a href="#">من نحن</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>أقسام التبرع</h4>
+      <ul>
+        <li><a href="#">تعليم</a></li>
+        <li><a href="#">صحة</a></li>
+        <li><a href="#">مياه</a></li>
+        <li><a href="#">أيتام</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>تواصل معنا</h4>
+      <ul>
+        <li><a href="#">الدعم الفني</a></li>
+        <li><a href="#">البريد الإلكتروني</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+        <li><a href="#">الشروط والأحكام</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 CO.Gr — جميع الحقوق محفوظة</p>
+    <div class="socials">
+      <a href="#">𝕏</a>
+      <a href="#">in</a>
+      <a href="#">f</a>
+      <a href="#">▶</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('show');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
